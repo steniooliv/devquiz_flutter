@@ -31,6 +31,10 @@ class AppBarWidget extends PreferredSize {
                             text: "Stenio",
                             style: AppTextStyles.titleBold,
                           ),
+                          TextSpan(
+                            text: "!",
+                            style: AppTextStyles.titleBold,
+                          ),
                         ],
                       )),
                       Container(
