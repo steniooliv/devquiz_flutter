@@ -1,3 +1,6 @@
+import 'package:devquiz_flutter/core/core.dart';
+import 'package:devquiz_flutter/home/controllers/home_controller.dart';
+import 'package:devquiz_flutter/home/controllers/home_state.dart';
 import 'package:devquiz_flutter/home/widgets/appbar/app_bar_widget.dart';
 import 'package:devquiz_flutter/home/widgets/level_button/level_button_widget.dart';
 import 'package:devquiz_flutter/home/widgets/quiz_card/quiz_card_widget.dart';
@@ -11,44 +14,68 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final controller = HomeController();
+
+  @override
+  void initState() {
+    super.initState();
+    controller.getUser();
+    controller.getQuizzes();
+    controller.stateNotifyer.addListener(() {
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBarWidget(),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                LevelButtonWidget(label: "Fácil"),
-                LevelButtonWidget(label: "Médio"),
-                LevelButtonWidget(label: "Difícil"),
-                LevelButtonWidget(label: "Perito"),
-              ],
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: GridView.count(
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
-                crossAxisCount: 2,
+    if (controller.state == HomeState.sucess) {
+      return Scaffold(
+        appBar: AppBarWidget(user: controller.user!),
+        body: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  QuizCardWidget(),
-                  QuizCardWidget(),
-                  QuizCardWidget(),
-                  QuizCardWidget(),
-                  QuizCardWidget(),
-                  QuizCardWidget(),
+                  LevelButtonWidget(label: "Fácil"),
+                  LevelButtonWidget(label: "Médio"),
+                  LevelButtonWidget(label: "Difícil"),
+                  LevelButtonWidget(label: "Perito"),
                 ],
               ),
             ),
-          )
-        ],
-      ),
-    );
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: GridView.count(
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 16,
+                  crossAxisCount: 2,
+                  children: controller.quizzes!
+                      .map(
+                        (e) => QuizCardWidget(
+                          title: e.title,
+                          completed:
+                              "${e.questionAnswered} de ${e.questions.length}",
+                          percent: e.questionAnswered / e.questions.length,
+                        ),
+                      )
+                      .toList(),
+                ),
+              ),
+            )
+          ],
+        ),
+      );
+    } else {
+      return Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(AppColors.darkGreen),
+          ),
+        ),
+      );
+    }
   }
 }
