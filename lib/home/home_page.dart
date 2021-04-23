@@ -1,9 +1,11 @@
+import 'package:devquiz_flutter/challenge/challenge_page.dart';
 import 'package:devquiz_flutter/core/core.dart';
 import 'package:devquiz_flutter/home/controllers/home_controller.dart';
 import 'package:devquiz_flutter/home/controllers/home_state.dart';
 import 'package:devquiz_flutter/home/widgets/appbar/app_bar_widget.dart';
 import 'package:devquiz_flutter/home/widgets/level_button/level_button_widget.dart';
 import 'package:devquiz_flutter/home/widgets/quiz_card/quiz_card_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -59,6 +61,15 @@ class _HomePageState extends State<HomePage> {
                           completed:
                               "${e.questionAnswered} de ${e.questions.length}",
                           percent: e.questionAnswered / e.questions.length,
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                  builder: (context) => ChallengePage(
+                                        question: e.questions,
+                                      )),
+                            );
+                          },
                         ),
                       )
                       .toList(),
