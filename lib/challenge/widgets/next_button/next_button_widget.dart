@@ -1,4 +1,5 @@
 import 'package:devquiz_flutter/core/app_colors.dart';
+import 'package:devquiz_flutter/core/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -23,6 +24,23 @@ class NextButtonWidget extends StatelessWidget {
       : this.backgroundColor = AppColors.darkGreen,
         this.textColor = AppColors.white,
         this.borderColor = AppColors.darkGreen,
+        this.overlayColor = AppColors.white.withAlpha(50),
+        this.label = label,
+        this.onTap = onTap;
+
+  NextButtonWidget.purple({required String label, required VoidCallback onTap})
+      : this.backgroundColor = AppColors.purple,
+        this.textColor = AppColors.white,
+        this.borderColor = AppColors.purple,
+        this.overlayColor = AppColors.white.withAlpha(50),
+        this.label = label,
+        this.onTap = onTap;
+
+  NextButtonWidget.transparent(
+      {required String label, required VoidCallback onTap})
+      : this.backgroundColor = Colors.transparent,
+        this.textColor = Color(0xff6E6680),
+        this.borderColor = Colors.transparent,
         this.overlayColor = AppColors.white.withAlpha(50),
         this.label = label,
         this.onTap = onTap;
