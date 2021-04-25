@@ -79,9 +79,22 @@ class AppTextStyles {
     fontSize: 20,
     fontWeight: FontWeight.normal,
   );
+
   static final TextStyle body11 = GoogleFonts.notoSans(
     color: AppColors.grey,
     fontSize: 11,
     fontWeight: FontWeight.normal,
+  );
+
+  static final TextStyle resultBody = GoogleFonts.notoSans(
+    color: AppColors.grey,
+    fontSize: 15,
+    fontWeight: FontWeight.normal,
+  );
+
+  static final TextStyle resultBodyBold = GoogleFonts.notoSans(
+    color: AppColors.grey,
+    fontSize: 15,
+    fontWeight: FontWeight.bold,
   );
 }
