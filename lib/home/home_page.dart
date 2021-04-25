@@ -67,6 +67,7 @@ class _HomePageState extends State<HomePage> {
                               CupertinoPageRoute(
                                   builder: (context) => ChallengePage(
                                         question: e.questions,
+                                        title: e.title,
                                       )),
                             );
                           },
